@@ -7,9 +7,17 @@ use App\Models\Employee;
 
 class EmployeeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $employees = Employee::all();
-        return view('index', compact(['employees']));
+
+        foreach ($employees as $key => $get) {
+            $employees[$key]->no = $key + 1;
+        }
+
+        if ($request->ajax()) {
+            return datatables()->of($employees)->make(true);
+        }
+        return view('index');
     }
 }

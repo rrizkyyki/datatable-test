@@ -32,15 +32,6 @@
                     <th>Age</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach ($employees as $key => $get)
-                    <tr>
-                        <td>{{$key + 1}}</td>
-                        <td>{{$get->name}}</td>
-                        <td>{{$get->age}}</td>
-                    </tr>
-                @endforeach
-            </tbody>
             <tfoot>
                 <tr>
                     <th>No</th>
@@ -57,7 +48,18 @@
 
     <script>
         $(document).ready(function () {
-            $('#example').DataTable();
+            $('#example').DataTable({
+                processing : true,
+                serverSide : true,
+                ajax : {
+                    url : "/"
+                },
+                columns : [
+                    {data:'no',name:'no'},
+                    {data:'name',name:'name'},
+                    {data:'age',name:'age'},
+                ],
+            });
         });
     </script>
 </body>
